@@ -18,6 +18,7 @@ import { FinalWhatsAppCTA } from "@/components/FinalWhatsAppCTA";
 import { Footer } from "@/components/Footer";
 import { Modals } from "@/components/Modals";
 import { ReviewBlock } from "@/components/ReviewBlock";
+import { IntegrationCardDemo } from "@/components/ui/integration-card";
 import { ChevronDown, ShieldCheck, Sparkles, Star } from "lucide-react";
 import gsap from "gsap";
 
@@ -154,8 +155,17 @@ export default function Home() {
   }, []);
 
   const handleNavigateToFeatures = () => scrollToProgress(0.24);
+  const handleNavigateToHowItWorks = () => scrollToProgress(0.58);
   const handleNavigateToTour = () => {
     const el = document.getElementById("product-tour");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleNavigateToFlow = () => {
+    const el = document.getElementById("signature-flow");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleNavigateToVoices = () => {
+    const el = document.getElementById("voice-samples");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
   const handleNavigateToWhoItsFor = () => {
@@ -190,10 +200,13 @@ export default function Home() {
       {/* Background Lighting with subtle Emerald glow */}
       <BlueprintDecorations />
 
-      {/* Top Menu: Flowra logo, links, and Get Started button */}
+      {/* Top Menu: Flowra logo, dropdown navigation, and Get Started button */}
       <Navbar
         onNavigateToFeatures={handleNavigateToFeatures}
+        onNavigateToHowItWorks={handleNavigateToHowItWorks}
         onNavigateToTour={handleNavigateToTour}
+        onNavigateToFlow={handleNavigateToFlow}
+        onNavigateToVoices={handleNavigateToVoices}
         onNavigateToWhoItsFor={handleNavigateToWhoItsFor}
         onNavigateToPricing={handleNavigateToPricing}
         onNavigateToFAQ={handleNavigateToFAQ}
@@ -353,6 +366,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* SECTION: CONNECTED LEAD ARCHITECTURE (8-NODE INTEGRATION CARD) */}
+      <IntegrationCardDemo />
 
       {/* SECTION: "SEE IT RUN" — THE HD PRODUCT TOUR */}
       <ProductTour />

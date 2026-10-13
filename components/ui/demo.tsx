@@ -1,80 +1,214 @@
 "use client";
 
-import React from "react";
-import FaqSection from "@/components/ui/habit-faq-scroller";
+import { DropdownNavigation } from "@/components/ui/dorpdown-navigation";
+import {
+  Cpu,
+  Globe,
+  Eye,
+  Shield,
+  Rocket,
+  Box,
+  Search,
+  Palette,
+  BookOpen,
+  FileText,
+  Newspaper,
+} from "lucide-react";
 
-export default function DemoOne() {
-  // --- EASY TO REMIX ---
-  // Just change the values in this object to update the FAQ Section
-  const faqData = {
-    mainTitle: "Frequently Asked Questions",
-    mainSubtitle:
-      "Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.",
-    rows: [
-      {
-        id: "row1",
-        speed: "60s",
-        direction: "left" as const,
-        faqItems: [
-          {
-            id: "q1",
-            question: "How do I track a new habit?",
-            answer:
-              'Simply click the "Add Habit" button on your dashboard, give it a name, set your schedule (daily, weekly, etc.), and you\'re ready to go!',
-          },
-          {
-            id: "q2",
-            question: "Is my data private and secure?",
-            answer:
-              "Absolutely. We use industry-standard encryption to protect your data. You are the only one who can see your personal progress.",
-          },
-        ],
-      },
-      {
-        id: "row2",
-        speed: "45s",
-        direction: "right" as const,
-        faqItems: [
-          {
-            id: "q3",
-            question: "Can I use this app with my team?",
-            answer:
-              'Yes! Our "Team" plan is designed for collaboration. You can create team goals, track shared habits, and view team-wide progress reports.',
-          },
-          {
-            id: "q4",
-            question: "What happens if I miss a day?",
-            answer:
-              "Life happens! Missing a day won't break your streak. Our app focuses on long-term consistency, not 100% perfection.",
-          },
-        ],
-      },
-      {
-        id: "row3",
-        speed: "70s",
-        direction: "left" as const,
-        faqItems: [
-          {
-            id: "q5",
-            question: "Is there a free trial?",
-            answer:
-              "Yes, you can try all our Pro features for 7 days, no credit card required. You can downgrade to the Free plan at any time.",
-          },
-          {
-            id: "q6",
-            question: "How do I cancel my subscription?",
-            answer:
-              "You can cancel your subscription at any time from your account settings page. Your access will continue until the end of your billing period.",
-          },
-        ],
-      },
-    ],
-  };
-  // --- END REMIX AREA ---
+function Demo() {
+  const NAV_ITEMS = [
+    {
+      id: 1,
+      label: "Products",
+      subMenus: [
+        {
+          title: "DX Platform",
+          items: [
+            {
+              label: "Previews",
+              description: "Helping teams ship 6× faster",
+              icon: Cpu,
+            },
+            {
+              label: "AI",
+              description: "Powering breakthroughs",
+              icon: Search,
+            },
+          ],
+        },
+        {
+          title: "Managed Infrastructure",
+          items: [
+            {
+              label: "Rendering",
+              description: "Fast, scalable, and reliable",
+              icon: Globe,
+            },
+            {
+              label: "Observability",
+              description: "Trace every step",
+              icon: Eye,
+            },
+            {
+              label: "Security",
+              description: "Scale without compromising",
+              icon: Shield,
+            },
+          ],
+        },
+        {
+          title: "Open Source",
+          items: [
+            {
+              label: "Next.js",
+              description: "The native Next.js platform",
+              icon: Rocket,
+            },
+            {
+              label: "Turborepo",
+              description: "Speed with Enterprise scale",
+              icon: Box,
+            },
+            {
+              label: "AI SDK",
+              description: "The AI Toolkit for TypeScript",
+              icon: Palette,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 2,
+      label: "Solutions",
+      subMenus: [
+        {
+          title: "Use Cases",
+          items: [
+            {
+              label: "AI Apps",
+              description: "Deploy at the speed of AI",
+              icon: Cpu,
+            },
+            {
+              label: "Composable Commerce",
+              description: "Power storefronts that convert",
+              icon: Box,
+            },
+            {
+              label: "Marketing Sites",
+              description: "Launch campaigns fast",
+              icon: Rocket,
+            },
+            {
+              label: "Multi-tenant Platforms",
+              description: "Scale apps with one codebase",
+              icon: Globe,
+            },
+            {
+              label: "Web Apps",
+              description: "Ship features, not infrastructure",
+              icon: Search,
+            },
+          ],
+        },
+        {
+          title: "Users",
+          items: [
+            {
+              label: "Platform Engineers",
+              description: "Automate away repetition",
+              icon: Cpu,
+            },
+            {
+              label: "Design Engineers",
+              description: "Deploy for every idea",
+              icon: Palette,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 3,
+      label: "Resources",
+      subMenus: [
+        {
+          title: "Tools",
+          items: [
+            {
+              label: "Resource Center",
+              description: "Today's best practices",
+              icon: BookOpen,
+            },
+            {
+              label: "Marketplace",
+              description: "Extend and automate workflows",
+              icon: Search,
+            },
+            {
+              label: "Templates",
+              description: "Jumpstart app development",
+              icon: FileText,
+            },
+            {
+              label: "Guides",
+              description: "Find help quickly",
+              icon: BookOpen,
+            },
+            {
+              label: "Partner Finder",
+              description: "Get help from solution partners",
+              icon: Search,
+            },
+          ],
+        },
+        {
+          title: "Company",
+          items: [
+            {
+              label: "Customers",
+              description: "Trusted by the best teams",
+              icon: Newspaper,
+            },
+            {
+              label: "Blog",
+              description: "The latest posts and changes",
+              icon: FileText,
+            },
+            {
+              label: "Changelog",
+              description: "See what shipped",
+              icon: BookOpen,
+            },
+            {
+              label: "Press",
+              description: "Read the latest news",
+              icon: Newspaper,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 4,
+      label: "Enterprise",
+      link: "#",
+    },
+    {
+      id: 5,
+      label: "Docs",
+      link: "#",
+    },
+    {
+      id: 6,
+      label: "Pricing",
+      link: "#",
+    },
+  ];
 
-  return (
-    <div className="text-gray-800 min-h-screen flex items-center justify-center py-20 px-4">
-      <FaqSection data={faqData} />
-    </div>
-  );
+  return <DropdownNavigation navItems={NAV_ITEMS} />;
 }
+
+export { Demo };
+export default Demo;
