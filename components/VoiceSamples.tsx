@@ -184,7 +184,7 @@ export const VoiceSamples: React.FC = () => {
   }, []);
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 border-t border-slate-200 bg-[#F8FAFC]">
+    <section id="voice-samples" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 border-t border-slate-200 bg-[#F8FAFC]">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-4">
           <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
