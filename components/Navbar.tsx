@@ -18,7 +18,10 @@ import {
 
 interface NavbarProps {
   onNavigateToFeatures: () => void;
+  onNavigateToHowItWorks?: () => void;
   onNavigateToTour?: () => void;
+  onNavigateToFlow?: () => void;
+  onNavigateToVoices?: () => void;
   onNavigateToWhoItsFor: () => void;
   onNavigateToPricing?: () => void;
   onNavigateToFAQ?: () => void;
