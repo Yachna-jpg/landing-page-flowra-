@@ -104,7 +104,7 @@ export const SignatureFlow: React.FC<{ onOpenGetStarted?: () => void }> = ({ onO
         <button
           type="button"
           onClick={onOpenGetStarted}
-          className="btn-pill-emerald px-7 py-3.5 text-sm font-semibold whitespace-nowrap cursor-pointer flex items-center gap-2"
+          className="btn-pill-emerald bg-emerald-600 text-white px-7 py-3.5 text-sm font-semibold rounded-full shadow-[0_4px_18px_rgba(16,185,129,0.3)] hover:bg-emerald-700 hover:shadow-[0_6px_24px_rgba(16,185,129,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all whitespace-nowrap cursor-pointer flex items-center gap-2"
         >
           <span>Reserve the ₹9 session</span>
           <ArrowRight className="w-4 h-4" />

@@ -173,7 +173,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
                   onClick={onOpenGetStarted}
                   className={`w-full py-3.5 px-6 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer ${
                     plan.isPopular
-                      ? "btn-pill-emerald text-white"
+                      ? "btn-pill-emerald bg-emerald-600 text-white hover:bg-emerald-700 shadow-md"
                       : "bg-slate-900 text-white hover:bg-slate-800 shadow-sm"
                   }`}
                 >

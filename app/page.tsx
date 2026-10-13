@@ -110,8 +110,20 @@ export default function Home() {
   }, []);
 
   const handleNavigateToFeatures = () => scrollToProgress(0.24);
+  const handleNavigateToTour = () => {
+    const el = document.getElementById("product-tour");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
   const handleNavigateToWhoItsFor = () => {
     const el = document.getElementById("who-its-for");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleNavigateToPricing = () => {
+    const el = document.getElementById("pricing");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleNavigateToFAQ = () => {
+    const el = document.getElementById("faq");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -137,7 +149,10 @@ export default function Home() {
       {/* Top Menu: Flowra logo, links, and Get Started button */}
       <Navbar
         onNavigateToFeatures={handleNavigateToFeatures}
+        onNavigateToTour={handleNavigateToTour}
         onNavigateToWhoItsFor={handleNavigateToWhoItsFor}
+        onNavigateToPricing={handleNavigateToPricing}
+        onNavigateToFAQ={handleNavigateToFAQ}
         onOpenContact={() => setContactOpen(true)}
         onOpenGetStarted={() => setGetStartedOpen(true)}
       />
@@ -161,20 +176,14 @@ export default function Home() {
                 }`}
               >
                 <div className="max-w-xl">
-                  {/* Eyebrow Pill */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-6">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Official Meta WhatsApp API · Hindi, Hinglish + 10 languages</span>
-                  </div>
-
                   {/* Main Headline */}
                   <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.08]">
                     Your AI Team for Every Lead
                   </h1>
 
-                  {/* Subhead */}
+                  {/* Subhead with concrete capability */}
                   <p className="mt-6 text-xl sm:text-2xl text-slate-600 font-normal leading-relaxed">
-                    Flowra calls, chats, and follows up with your leads automatically.
+                    Flowra calls, chats, and qualifies every lead automatically on WhatsApp and phone lines.
                   </p>
 
                   {/* Primary CTA + Scroll indicator */}
@@ -182,7 +191,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setGetStartedOpen(true)}
-                      className="btn-pill-black px-9 py-4 text-base font-semibold cursor-pointer"
+                      className="btn-pill-black bg-slate-900 text-white px-8 py-4 text-base font-semibold rounded-full shadow-[0_4px_14px_rgba(15,23,42,0.18)] hover:bg-slate-800 hover:shadow-[0_8px_24px_rgba(15,23,42,0.28)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
                     >
                       Book ₹9 session
                     </button>
@@ -190,7 +199,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => scrollToProgress(0.24)}
-                      className="group flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer text-sm font-medium"
+                      className="group flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer text-sm font-medium py-3 px-2"
                     >
                       <span>Scroll to explore</span>
                       <ChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-0.5" />
@@ -198,12 +207,17 @@ export default function Home() {
                   </div>
 
                   {/* Proof line */}
-                  <div className="mt-8 pt-5 border-t border-slate-200 flex flex-wrap items-center gap-4 text-xs text-slate-500 font-medium">
-                    <span>Set up in minutes</span>
+                  <div className="mt-8 pt-5 border-t border-slate-200 flex flex-wrap items-center gap-3.5 text-xs text-slate-500 font-medium">
+                    <span className="flex items-center gap-1.5 text-slate-700 font-semibold">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      Meta WhatsApp API
+                    </span>
+                    <span>•</span>
+                    <span>Hindi, Hinglish + 10 languages</span>
                     <span>•</span>
                     <span>1,000 trial credits</span>
                     <span>•</span>
-                    <span>Your WhatsApp number stays yours</span>
+                    <span>Keep your number</span>
                   </div>
                 </div>
               </div>
@@ -293,7 +307,7 @@ export default function Home() {
             <img
               src="/flowra_expanded.png"
               alt="Flowra"
-              className="h-7 w-auto object-contain"
+              className="h-9 sm:h-10 w-auto object-contain"
             />
             <span className="text-xs text-slate-500">
               © 2026 Flowra AI Inc. All rights reserved.

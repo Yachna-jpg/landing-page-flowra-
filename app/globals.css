@@ -99,33 +99,48 @@ h1, h2, h3, h4 {
 }
 
 /* Primary Pill Button in Light Mode (Deep Slate / Black Pill with elegant shadow) */
-.btn-pill-white,
-.btn-pill-black {
+@utility btn-pill-white {
   background-color: #0F172A;
   color: #FFFFFF;
   border-radius: 9999px;
-  font-weight: 500;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  &:hover {
+    background-color: #1E293B;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
 }
 
-.btn-pill-white:hover,
-.btn-pill-black:hover {
-  background-color: #1E293B;
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
-  transform: translateY(-1px);
-}
-
-.btn-pill-white:active,
-.btn-pill-black:active {
-  transform: translateY(0);
+@utility btn-pill-black {
+  background-color: #0F172A;
+  color: #FFFFFF;
+  border-radius: 9999px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+  &:hover {
+    background-color: #1E293B;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
+    transform: translateY(-1px);
+  }
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 /* Secondary White Pill Button with subtle border */
-.btn-pill-secondary {
+@utility btn-pill-secondary {
   background-color: #FFFFFF;
   color: #0F172A;
   border: 1px solid #E2E8F0;
@@ -134,18 +149,17 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.btn-pill-secondary:hover {
-  background-color: #F8FAFC;
-  border-color: #CBD5E1;
-  transform: translateY(-1px);
+  &:hover {
+    background-color: #F8FAFC;
+    border-color: #CBD5E1;
+    transform: translateY(-1px);
+  }
 }
 
 /* Emerald Pill Button & Emerald Glows */
-.btn-pill-emerald {
+@utility btn-pill-emerald {
   background-color: #10B981;
   color: #FFFFFF;
   border-radius: 9999px;
@@ -153,21 +167,20 @@ h1, h2, h3, h4 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 18px rgba(16, 185, 129, 0.3);
+  &:hover {
+    background-color: #059669;
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+    transform: translateY(-1px);
+  }
 }
 
-.btn-pill-emerald:hover {
-  background-color: #059669;
-  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
-  transform: translateY(-1px);
-}
-
-.glow-emerald {
+@utility glow-emerald {
   box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
 }
 
-.border-thin {
+@utility border-thin {
   border: 1px solid #E2E8F0;
 }
 
@@ -193,6 +206,8 @@ h1, h2, h3, h4 {
   aspect-ratio: 1;
   user-select: none;
   -webkit-user-drag: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 98%);
+  mask-image: linear-gradient(to bottom, black 82%, transparent 98%);
 }
 
 .robot-layer {

@@ -34,7 +34,7 @@ export const FinalWhatsAppCTA: React.FC<FinalWhatsAppCTAProps> = ({
           <button
             type="button"
             onClick={onOpenGetStarted}
-            className="btn-pill-emerald px-10 py-4 text-base font-semibold cursor-pointer flex items-center gap-2.5 shadow-[0_0_35px_rgba(16,185,129,0.35)]"
+            className="btn-pill-emerald bg-emerald-500 text-white px-10 py-4 text-base font-semibold rounded-full shadow-[0_4px_25px_rgba(16,185,129,0.35)] hover:bg-emerald-600 hover:shadow-[0_8px_30px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer flex items-center gap-2.5"
           >
             <span>Reserve the ₹9 live architecture session</span>
             <ArrowRight className="w-4 h-4 stroke-[2.5]" />
