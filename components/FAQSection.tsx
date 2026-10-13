@@ -1,87 +1,116 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import React from "react";
+import FaqSection, { FaqData } from "@/components/ui/habit-faq-scroller";
 
-interface FAQItem {
-  q: string;
-  a: string;
-}
-
-const FAQS: FAQItem[] = [
-  {
-    q: "How does Flowra connect with our existing WhatsApp number?",
-    a: "Flowra uses the official Meta WhatsApp Business Cloud API. You can either onboard your current active business phone number (by migrating it to Cloud API) or deploy a fresh virtual number in under 5 minutes without losing existing chat backups.",
-  },
-  {
-    q: "Can the AI voice calls speak in Hindi or Hinglish?",
-    a: "Yes. Flowra's voice engine is natively trained on Indian accents including conversational Hinglish, North Indian Hindi, Tamil, Telugu, Kannada, and Marathi. You can choose tone presets from warm advisor to professional corporate demo.",
-  },
-  {
-    q: "Does Flowra hallucinate pricing or terms?",
-    a: "No. Flowra is strictly grounded on your uploaded knowledge base—brochures, PDFs, website URLs, and spreadsheets. If an inquiry falls outside your approved documentation, the assistant gracefully offers a human callback or transfers to a live agent.",
-  },
-  {
-    q: "How does human agent handoff work?",
-    a: "When a customer asks for a live human, or when the AI detects complex requirements, the bot pauses automation immediately, tags the thread as 'Needs Reply', and notifies your team on the Shared Inbox and via instant WhatsApp alert.",
-  },
-  {
-    q: "Which CRMs does Flowra integrate with?",
-    a: "Flowra features native bi-directional sync with HubSpot, Zoho, LeadSquared, Salesforce, and Google Sheets. Every conversation, call recording, and qualification tag writes directly back to your pipeline stages in real time.",
-  },
-  {
-    q: "What is the ₹9 architecture session?",
-    a: "It is a 20-minute 1-on-1 production setup call with a systems architect. We map your specific catalog or lead sources, test your WhatsApp connection, and show you the exact automated flow live. The ₹9 is credited back as ₹500 in your platform wallet upon joining.",
-  },
-];
+const FLOWRA_FAQ_DATA: FaqData = {
+  mainTitle: "Frequently Asked Questions",
+  mainSubtitle:
+    "Have questions? We've got answers. If you can't find what you're looking for, feel free to contact us.",
+  rows: [
+    {
+      id: "row1",
+      speed: "50s",
+      direction: "left",
+      faqItems: [
+        {
+          id: "f1",
+          question: "How does Flowra connect with our WhatsApp number?",
+          answer:
+            "Flowra connects via the official Meta WhatsApp Business Cloud API. You can keep your active business number or launch a new virtual line in 5 minutes with zero lost chats.",
+        },
+        {
+          id: "f2",
+          question: "Is our customer data private and secure?",
+          answer:
+            "Absolutely. We use enterprise-grade 256-bit encryption and isolated database partitions to protect your customer data. You retain 100% data ownership.",
+        },
+        {
+          id: "f3",
+          question: "Can the AI voice agent speak in Hindi or Hinglish?",
+          answer:
+            "Yes! Flowra is natively trained on Indian regional accents, including conversational Hinglish, North Indian Hindi, Tamil, Telugu, and English with sub-second latency.",
+        },
+        {
+          id: "f4",
+          question: "Does Flowra hallucinate pricing or terms?",
+          answer:
+            "Never. Flowra is strictly grounded on your catalog, brochures, and documentation. Queries outside approved materials trigger an immediate human callback offer.",
+        },
+      ],
+    },
+    {
+      id: "row2",
+      speed: "45s",
+      direction: "right",
+      faqItems: [
+        {
+          id: "f5",
+          question: "Can I use Flowra with my team and existing CRM?",
+          answer:
+            "Yes! Flowra features native 2-way real-time sync with HubSpot, Zoho, LeadSquared, Salesforce, and Google Sheets. Conversations and tags write directly to your pipeline.",
+        },
+        {
+          id: "f6",
+          question: "How does live human agent handoff work?",
+          answer:
+            "When a buyer asks for a real human or asks complex queries, Flowra pauses automation instantly and alerts your team via Shared Inbox and priority WhatsApp notification.",
+        },
+        {
+          id: "f7",
+          question: "What is the ₹9 architecture session?",
+          answer:
+            "A 20-minute 1-on-1 production setup call with a systems architect. We connect your WhatsApp, test voice live, and credit ₹500 directly into your platform wallet.",
+        },
+        {
+          id: "f8",
+          question: "What happens if a lead calls after office hours?",
+          answer:
+            "Flowra answers 24/7 within 2 seconds. The AI qualifies the prospect, answers product questions, and schedules appointments right on your sales calendar.",
+        },
+      ],
+    },
+    {
+      id: "row3",
+      speed: "48s",
+      direction: "right",
+      faqItems: [
+        {
+          id: "f9",
+          question: "Is there a free trial or credit package?",
+          answer:
+            "Yes, you can test Flowra with 1,000 complimentary trial credits to run live WhatsApp chats and voice calls before committing to any paid subscription.",
+        },
+        {
+          id: "f10",
+          question: "How fast can our sales team go live?",
+          answer:
+            "Most teams go live in under 15 minutes. Upload your brochures or FAQs, verify your Meta WhatsApp account, and your AI team starts qualifying leads immediately.",
+        },
+        {
+          id: "f11",
+          question: "Can Flowra run automated outbound calling?",
+          answer:
+            "Yes! You can trigger automated AI calls to inbound web leads within 60 seconds of form submission or re-engage cold CRM contacts with scheduled follow-ups.",
+        },
+        {
+          id: "f12",
+          question: "How do I cancel or upgrade my subscription?",
+          answer:
+            "You can upgrade, downgrade, or cancel your subscription anytime directly from your dashboard billing settings without long-term contracts or penalties.",
+        },
+      ],
+    },
+  ],
+};
 
 export const FAQSection: React.FC = () => {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
-
   return (
-    <section id="faq" className="w-full max-w-5xl mx-auto px-6 sm:px-12 py-24 border-t border-slate-200 bg-white">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-4">
-          <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Got Questions?</span>
-        </div>
-        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
-          Frequently Asked Questions
-        </h2>
-        <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Everything you need to know about official WhatsApp setup, regional voice calling, and team rollout.
-        </p>
-      </div>
-
-      <div className="space-y-3.5">
-        {FAQS.map((faq, idx) => {
-          const isOpen = openIdx === idx;
-          return (
-            <div
-              key={idx}
-              className="rounded-xl bg-slate-50 border border-slate-200 overflow-hidden transition-all shadow-xs"
-            >
-              <button
-                type="button"
-                onClick={() => setOpenIdx(isOpen ? null : idx)}
-                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-100/70 transition-colors"
-              >
-                <span className="font-semibold text-slate-900 text-base sm:text-lg">{faq.q}</span>
-                <ChevronDown
-                  className={`w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0 ${
-                    isOpen ? "rotate-180 text-emerald-600" : ""
-                  }`}
-                />
-              </button>
-              {isOpen && (
-                <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-200/80 pt-4">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
+    <section
+      id="faq"
+      className="relative w-full border-t border-slate-200/80 bg-gradient-to-b from-white via-[#EDF2FF] to-[#CBD8FE] overflow-hidden"
+    >
+      <FaqSection data={FLOWRA_FAQ_DATA} />
     </section>
   );
 };

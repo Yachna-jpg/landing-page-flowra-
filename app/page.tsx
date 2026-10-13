@@ -15,11 +15,17 @@ import { VoiceSamples } from "@/components/VoiceSamples";
 import { PricingSection } from "@/components/PricingSection";
 import { FAQSection } from "@/components/FAQSection";
 import { FinalWhatsAppCTA } from "@/components/FinalWhatsAppCTA";
+import { Footer } from "@/components/Footer";
 import { Modals } from "@/components/Modals";
-import { ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
+import { ReviewBlock } from "@/components/ReviewBlock";
+import { ChevronDown, ShieldCheck, Sparkles, Star } from "lucide-react";
+import gsap from "gsap";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const heroLeftRef = useRef<HTMLDivElement>(null);
+  const idealForHeaderRef = useRef<HTMLSpanElement>(null);
+  const idealForListRef = useRef<HTMLUListElement>(null);
 
   // Active stage: 0 = Hero, 1 = Features, 2 = How It Works, 3 = Final Closer
   const [activeStage, setActiveStage] = useState<0 | 1 | 2 | 3>(0);
@@ -34,6 +40,44 @@ export default function Home() {
   // Modals
   const [contactOpen, setContactOpen] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
+
+  // Entrance animations when user lands on the page
+  useEffect(() => {
+    // 1. Left side full hero from the left
+    if (heroLeftRef.current) {
+      gsap.fromTo(
+        heroLeftRef.current,
+        { x: -75, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1.0, ease: "power3.out", delay: 0.15 }
+      );
+    }
+
+    // 2. Right side "IDEAL FOR:" header from the right
+    if (idealForHeaderRef.current) {
+      gsap.fromTo(
+        idealForHeaderRef.current,
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.25 }
+      );
+    }
+
+    // 3. Right side bullet items point-wise from the right
+    if (idealForListRef.current) {
+      const items = Array.from(idealForListRef.current.children);
+      gsap.fromTo(
+        items,
+        { x: 60, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.75,
+          stagger: 0.12,
+          ease: "power3.out",
+          delay: 0.35,
+        }
+      );
+    }
+  }, []);
 
   // Scroll listener that directly syncs the mascot face and active stages
   useEffect(() => {
@@ -162,36 +206,71 @@ export default function Home() {
       <div ref={containerRef} className="relative w-full h-[350vh]">
         {/* STICKY VIEWPORT STAGE */}
         <div className="sticky top-0 h-screen w-full z-20 pointer-events-none flex items-center justify-center overflow-hidden">
-          <div className="w-full max-w-7xl mx-auto h-full px-6 sm:px-12 grid grid-cols-1 lg:grid-cols-2 items-center">
+          {/* IDEAL FOR Panel Pinned to the Right Corner */}
+          <div
+            className={`absolute right-6 sm:right-10 lg:right-12 xl:right-16 top-[42%] -translate-y-1/2 z-30 transition-all duration-500 ease-out flex flex-col items-end text-right ${activeStage === 0
+              ? "opacity-100 translate-x-0 pointer-events-auto"
+              : "opacity-0 translate-x-8 pointer-events-none"
+              }`}
+          >
+            <span
+              ref={idealForHeaderRef}
+              className="text-xs sm:text-sm font-bold tracking-[0.16em] uppercase text-slate-400 mb-4 select-none"
+            >
+              IDEAL FOR:
+            </span>
+            <ul
+              ref={idealForListRef}
+              className="space-y-3.5 text-base sm:text-lg lg:text-[19px] font-semibold text-slate-800 select-none"
+            >
+              <li className="flex items-center gap-2.5 justify-end group cursor-default hover:text-emerald-700 transition-colors">
+                <span>Marketing Teams</span>
+                <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">✱</span>
+              </li>
+              <li className="flex items-center gap-2.5 justify-end group cursor-default hover:text-emerald-700 transition-colors">
+                <span>Agencies & SaaS Companies</span>
+                <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">✱</span>
+              </li>
+              <li className="flex items-center gap-2.5 justify-end group cursor-default hover:text-emerald-700 transition-colors">
+                <span>Enterprises & Startups</span>
+                <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">✱</span>
+              </li>
+              <li className="flex items-center gap-2.5 justify-end group cursor-default hover:text-emerald-700 transition-colors">
+                <span>B2B Companies & Enterprises</span>
+                <span className="text-slate-400 group-hover:text-emerald-600 transition-colors">✱</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="w-full max-w-7xl mx-auto h-full px-6 sm:px-12 grid grid-cols-1 lg:grid-cols-2 items-center pt-20 sm:pt-24 lg:pt-20 pb-6 sm:pb-8">
 
             {/* LEFT COLUMN: Clean typography container */}
-            <div className="relative z-30 h-full flex flex-col justify-center pointer-events-auto pr-0 lg:pr-8 pt-24 lg:pt-0">
+            <div className="relative z-30 h-full flex flex-col justify-center pointer-events-auto pr-0 lg:pr-8">
 
               {/* 1. HERO SECTION */}
               <div
-                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${
-                  activeStage === 0
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 -translate-y-8 pointer-events-none"
-                }`}
+                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${activeStage === 0
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-8 pointer-events-none"
+                  }`}
               >
-                <div className="max-w-xl">
-                  {/* Main Headline */}
-                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.08]">
-                    Your AI Team for Every Lead
+                <div ref={heroLeftRef} className="max-w-2xl">
+                  {/* Main Headline - in strictly 2 lines with normal font weight */}
+                  <h1 className="text-4xl sm:text-5xl lg:text-[54px] xl:text-[58px] font-normal tracking-tight text-slate-900 leading-[1.08]">
+                    Your AI employee <br className="hidden sm:inline" />in Marketing
                   </h1>
 
                   {/* Subhead with concrete capability */}
-                  <p className="mt-6 text-xl sm:text-2xl text-slate-600 font-normal leading-relaxed">
-                    Flowra calls, chats, and qualifies every lead automatically on WhatsApp and phone lines.
+                  <p className="mt-5 text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-xl">
+                    Let AI employees handle campaign execution and optimization while your team focuses on growth.
                   </p>
 
                   {/* Primary CTA + Scroll indicator */}
-                  <div className="mt-10 flex flex-wrap items-center gap-6">
+                  <div className="mt-9 flex flex-wrap items-center gap-6">
                     <button
                       type="button"
                       onClick={() => setGetStartedOpen(true)}
-                      className="btn-pill-black bg-slate-900 text-white px-8 py-4 text-base font-semibold rounded-full shadow-[0_4px_14px_rgba(15,23,42,0.18)] hover:bg-slate-800 hover:shadow-[0_8px_24px_rgba(15,23,42,0.28)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
+                      className="btn-pill-black bg-slate-900 text-white px-8 py-3.5 sm:py-4 text-base font-semibold rounded-full shadow-[0_4px_14px_rgba(15,23,42,0.18)] hover:bg-slate-800 hover:shadow-[0_8px_24px_rgba(15,23,42,0.28)] hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer"
                     >
                       Book ₹9 session
                     </button>
@@ -206,31 +285,30 @@ export default function Home() {
                     </button>
                   </div>
 
-                  {/* Proof line */}
-                  <div className="mt-8 pt-5 border-t border-slate-200 flex flex-wrap items-center gap-3.5 text-xs text-slate-500 font-medium">
-                    <span className="flex items-center gap-1.5 text-slate-700 font-semibold">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      Meta WhatsApp API
-                    </span>
-                    <span>•</span>
-                    <span>Hindi, Hinglish + 10 languages</span>
-                    <span>•</span>
-                    <span>1,000 trial credits</span>
-                    <span>•</span>
-                    <span>Keep your number</span>
-                  </div>
+                  {/* Native Google Review on Screen Directly (No Card Box) */}
+                  <ReviewBlock
+                    review={{
+                      id: "hero-review",
+                      rating: 4.5,
+                      headline: "Best AI caller & WhatsApp team in market!",
+                      quote: "Flowra calls every lead within seconds in fluent Hinglish, answers catalog doubts, and books warm appointments directly into our CRM.",
+                      author: "Rohan Sharma",
+                      role: "VP Growth, D2C Brands (Delhi NCR)",
+                      avatar: "/indian_reviewer.jpg",
+                    }}
+                    className="mt-12 sm:mt-14"
+                  />
                 </div>
               </div>
 
               {/* 2. FEATURES SECTION (WhatsApp, Website, Voice with 3 dots indicator) */}
               <div
-                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${
-                  activeStage === 1
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : activeStage > 1
+                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${activeStage === 1
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : activeStage > 1
                     ? "opacity-0 -translate-y-8 pointer-events-none"
                     : "opacity-0 translate-y-8 pointer-events-none"
-                }`}
+                  }`}
               >
                 <FeatureTabs
                   activeIndex={activeFeatureIndex}
@@ -240,13 +318,12 @@ export default function Home() {
 
               {/* 3. HOW IT WORKS SECTION (1, 2, 3 dimmed numbers turning bright) */}
               <div
-                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${
-                  activeStage === 2
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : activeStage > 2
+                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${activeStage === 2
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : activeStage > 2
                     ? "opacity-0 -translate-y-8 pointer-events-none"
                     : "opacity-0 translate-y-8 pointer-events-none"
-                }`}
+                  }`}
               >
                 <HowItWorksSteps
                   activeStep={activeStepIndex}
@@ -256,20 +333,21 @@ export default function Home() {
 
               {/* 4. FINAL PART SECTION (Smiling robot closer) */}
               <div
-                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${
-                  activeStage === 3
-                    ? "opacity-100 translate-y-0 pointer-events-auto"
-                    : "opacity-0 translate-y-8 pointer-events-none"
-                }`}
+                className={`absolute inset-0 flex flex-col justify-center transition-all duration-500 ease-out ${activeStage === 3
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 translate-y-8 pointer-events-none"
+                  }`}
               >
                 <FinalCTA onOpenGetStarted={() => setGetStartedOpen(true)} />
               </div>
 
             </div>
 
-            {/* RIGHT COLUMN: Pinned 3D Robot Mascot */}
+            {/* RIGHT COLUMN: Pinned 3D Robot Mascot (Subtle, constant opacity throughout) */}
             <div className="relative h-full flex items-center justify-center lg:justify-end pointer-events-auto">
-              <RobotMascot faceState={faceState} />
+              <div className="transition-opacity duration-500 opacity-35 lg:opacity-30 blur-[1px]">
+                <RobotMascot faceState={faceState} />
+              </div>
             </div>
 
           </div>
@@ -283,7 +361,7 @@ export default function Home() {
       <PlatformGrid />
 
       {/* SECTION: "LEAD FORM IN. BOOKED CALL OUT." — SIGNATURE FLOW RAIL */}
-       <SignatureFlow onOpenGetStarted={() => setGetStartedOpen(true)} />
+      <SignatureFlow onOpenGetStarted={() => setGetStartedOpen(true)} />
 
       {/* SECTION: VOICE SAMPLES (MULTI-LANGUAGE GRID WITH AUDIO PLAYER) */}
       <VoiceSamples />
@@ -301,28 +379,10 @@ export default function Home() {
       <FinalWhatsAppCTA onOpenGetStarted={() => setGetStartedOpen(true)} />
 
       {/* FOOTER */}
-      <footer className="relative z-30 border-t border-slate-200 bg-white py-14 px-6 sm:px-12 text-slate-500 text-sm">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img
-              src="/flowra_expanded.png"
-              alt="Flowra"
-              className="h-9 sm:h-10 w-auto object-contain"
-            />
-            <span className="text-xs text-slate-500">
-              © 2026 Flowra AI Inc. All rights reserved.
-            </span>
-          </div>
-          <div className="flex items-center gap-8 text-xs text-slate-600">
-            <span className="flex items-center gap-1.5 font-medium">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              Meta Certified Business Solution Provider
-            </span>
-            <span className="hover:text-slate-900 cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-slate-900 cursor-pointer transition-colors">Terms of Service</span>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        onOpenGetStarted={() => setGetStartedOpen(true)}
+        onOpenContact={() => setContactOpen(true)}
+      />
 
       {/* Modals for Contact and Get Started */}
       <Modals

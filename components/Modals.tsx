@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   X,
   Check,
@@ -33,6 +33,23 @@ const TIME_SLOTS = [
   "06:30 PM",
 ];
 
+type AvailableDate = {
+  id: string;
+  label: string;
+  monthDay: string;
+  fullDateStr: string;
+};
+
+// Stable initial dates for Next.js prerender
+const INITIAL_DATES: AvailableDate[] = [
+  { id: "slot-1", label: "Today", monthDay: "Oct 14", fullDateStr: "Monday, Oct 14, 2026" },
+  { id: "slot-2", label: "Tomorrow", monthDay: "Oct 15", fullDateStr: "Tuesday, Oct 15, 2026" },
+  { id: "slot-3", label: "Wed", monthDay: "Oct 16", fullDateStr: "Wednesday, Oct 16, 2026" },
+  { id: "slot-4", label: "Thu", monthDay: "Oct 17", fullDateStr: "Thursday, Oct 17, 2026" },
+  { id: "slot-5", label: "Fri", monthDay: "Oct 18", fullDateStr: "Friday, Oct 18, 2026" },
+  { id: "slot-6", label: "Mon", monthDay: "Oct 21", fullDateStr: "Monday, Oct 21, 2026" },
+];
+
 export const Modals: React.FC<ModalsProps> = ({
   contactOpen,
   onCloseContact,
@@ -45,9 +62,14 @@ export const Modals: React.FC<ModalsProps> = ({
   // Demo Booking State
   const [bookingStep, setBookingStep] = useState<1 | 2 | 3>(1); // 1: Date & Time, 2: Business Info, 3: Confirmed
 
-  // Generate the next 6 available business days dynamically
-  const availableDates = useMemo(() => {
-    const dates = [];
+  // Available dates loaded safely in useEffect
+  const [availableDates, setAvailableDates] = useState<AvailableDate[]>(INITIAL_DATES);
+  const [selectedDate, setSelectedDate] = useState<string>("slot-1");
+  const [selectedTime, setSelectedTime] = useState<string>(TIME_SLOTS[1]);
+
+  // Compute live browser dates inside useEffect to prevent Next.js blocking prerender errors
+  useEffect(() => {
+    const dates: AvailableDate[] = [];
     const now = new Date();
     let added = 0;
     let dayOffset = 0;
@@ -56,7 +78,6 @@ export const Modals: React.FC<ModalsProps> = ({
       const d = new Date(now);
       d.setDate(now.getDate() + dayOffset);
       const dayOfWeek = d.getDay(); // 0 is Sunday
-      // Skip Sundays
       if (dayOfWeek !== 0) {
         const isToday = dayOffset === 0;
         const isTomorrow = dayOffset === 1;
@@ -85,13 +106,12 @@ export const Modals: React.FC<ModalsProps> = ({
       }
       dayOffset++;
     }
-    return dates;
-  }, []);
 
-  const [selectedDate, setSelectedDate] = useState<string>(
-    availableDates[0]?.id || ""
-  );
-  const [selectedTime, setSelectedTime] = useState<string>(TIME_SLOTS[1]);
+    if (dates.length > 0) {
+      setAvailableDates(dates);
+      setSelectedDate(dates[0].id);
+    }
+  }, []);
 
   // Business Intake Form
   const [businessEmail, setBusinessEmail] = useState("");

@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
-import { Comfortaa, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-
-const comfortaa = Comfortaa({
-  subsets: ["latin"],
-  variable: "--font-comfortaa",
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,7 +23,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${comfortaa.variable} ${inter.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-[#FAFAFA] text-slate-900 flex flex-col font-sans selection:bg-emerald-500/20 selection:text-emerald-950">
         {children}
