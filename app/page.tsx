@@ -13,6 +13,7 @@ import { SignatureFlow } from "@/components/SignatureFlow";
 import { WhoItsFor } from "@/components/WhoItsFor";
 import { VoiceSamples } from "@/components/VoiceSamples";
 import { PricingSection } from "@/components/PricingSection";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { FAQSection } from "@/components/FAQSection";
 import { FinalWhatsAppCTA } from "@/components/FinalWhatsAppCTA";
 import { Footer } from "@/components/Footer";
@@ -383,13 +384,19 @@ export default function Home() {
       <VoiceSamples />
 
       {/* SECTION: WHO IT'S FOR */}
-      <WhoItsFor />
+      <WhoItsFor onOpenGetStarted={() => setGetStartedOpen(true)} />
+
+      {/* SECTION: TESTIMONIALS (WALL OF LOVE MULTI-ROW SCROLLER) */}
+      <TestimonialsSection />
 
       {/* SECTION: PRICING SECTION (INR PRICING WITH ANNUAL TOGGLE) */}
       <PricingSection onOpenGetStarted={() => setGetStartedOpen(true)} />
 
       {/* SECTION: FREQUENTLY ASKED QUESTIONS */}
-      <FAQSection />
+      <FAQSection
+        onOpenContact={() => setContactOpen(true)}
+        onOpenGetStarted={() => setGetStartedOpen(true)}
+      />
 
       {/* SECTION: FINAL CALL TO ACTION */}
       <FinalWhatsAppCTA onOpenGetStarted={() => setGetStartedOpen(true)} />
