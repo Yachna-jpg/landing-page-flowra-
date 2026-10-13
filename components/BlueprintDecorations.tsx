@@ -5,8 +5,9 @@ import React from "react";
 export const BlueprintDecorations: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none -z-10 select-none overflow-hidden">
-      {/* Soft subtle ambient background light */}
-      <div className="absolute top-1/3 left-2/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-indigo-950/[0.08] blur-[150px]" />
+      {/* Soft subtle ambient background light with subtle emerald and blue tone on light background */}
+      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-emerald-500/[0.04] blur-[160px]" />
+      <div className="absolute bottom-1/3 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/[0.025] blur-[140px]" />
     </div>
   );
 };

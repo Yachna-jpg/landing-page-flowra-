@@ -18,7 +18,7 @@ export const HOW_IT_WORKS_DATA = [
   },
   {
     number: "3",
-    sentence: "Flowora talks to them and hands over the hot leads.",
+    sentence: "Flowra talks to them and hands over the hot leads.",
   },
 ];
 
@@ -38,22 +38,22 @@ export const HowItWorksSteps: React.FC<HowItWorksStepsProps> = ({
             className={`flex items-baseline gap-6 sm:gap-8 cursor-pointer select-none transition-all duration-500 ${
               isActive
                 ? "opacity-100 translate-x-2"
-                : "opacity-30 hover:opacity-50"
+                : "opacity-40 hover:opacity-60"
             }`}
           >
             {/* Big Number (1, 2, 3) */}
             <span
               className={`text-4xl sm:text-6xl font-bold tracking-tight transition-colors duration-500 shrink-0 ${
-                isActive ? "text-white" : "text-zinc-600"
+                isActive ? "text-slate-900" : "text-slate-300"
               }`}
             >
               {step.number}
             </span>
 
-            {/* One Short Sentence Next to It */}
+            {/* Short Sentence */}
             <p
               className={`text-xl sm:text-2xl font-normal leading-relaxed transition-colors duration-500 ${
-                isActive ? "text-white" : "text-zinc-500"
+                isActive ? "text-slate-800" : "text-slate-400"
               }`}
             >
               {step.sentence}

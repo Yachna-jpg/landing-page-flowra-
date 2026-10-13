@@ -1,0 +1,56 @@
+{
+  "canvas": [
+    550,
+    550
+  ],
+  "note": "Every PNG is 550x550 and pre-registered: stack them all at (0,0) in this order, no offsets needed.",
+  "z_order_back_to_front": [
+    "arm_left",
+    "arm_right",
+    "torso_neck",
+    "neck",
+    "ear_left",
+    "ear_right",
+    "face_screen (clipped by screen_mask)",
+    "head_shell",
+    "eye_left",
+    "eye_right"
+  ],
+  "optional": [
+    "chat_icon (cropped sprite, centre of screen, use instead of eyes)"
+  ],
+  "head_group": [
+    "ear_left",
+    "ear_right",
+    "face_screen",
+    "head_shell",
+    "eye_left",
+    "eye_right"
+  ],
+  "pivots_px": {
+    "head_group_origin": [
+      272,
+      300
+    ],
+    "head_centre_x": 272,
+    "screen_centre": [
+      274,
+      189
+    ],
+    "eye_left": [
+      226,
+      195
+    ],
+    "eye_right": [
+      323,
+      195
+    ]
+  },
+  "screen_bbox": [
+    160,
+    81,
+    388,
+    296
+  ],
+  "chat_icon_centre_in_source_crop": "icon is 144x140 px; centre it on the screen centre"
+}
