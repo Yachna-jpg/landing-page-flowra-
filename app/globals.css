@@ -64,16 +64,22 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   letter-spacing: -0.03em;
 }
 
 /* Floating movement for robot mascot */
 @keyframes calmFloat {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-16px);
   }
@@ -85,9 +91,14 @@ h1, h2, h3, h4 {
 
 /* Gentle eye blink */
 @keyframes eyeBlink {
-  0%, 93%, 97%, 100% {
+
+  0%,
+  93%,
+  97%,
+  100% {
     transform: scaleY(1);
   }
+
   95% {
     transform: scaleY(0.08);
   }
@@ -104,6 +115,7 @@ h1, h2, h3, h4 {
     opacity: 0;
     transform: translateX(-40px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
@@ -125,11 +137,13 @@ h1, h2, h3, h4 {
   justify-content: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+
   &:hover {
     background-color: #1E293B;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
     transform: translateY(-1px);
   }
+
   &:active {
     transform: translateY(0);
   }
@@ -145,11 +159,13 @@ h1, h2, h3, h4 {
   justify-content: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
+
   &:hover {
     background-color: #1E293B;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.28);
     transform: translateY(-1px);
   }
+
   &:active {
     transform: translateY(0);
   }
@@ -167,6 +183,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
   &:hover {
     background-color: #F8FAFC;
     border-color: #CBD5E1;
@@ -185,6 +202,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 18px rgba(16, 185, 129, 0.3);
+
   &:hover {
     background-color: #059669;
     box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
@@ -204,13 +222,16 @@ h1, h2, h3, h4 {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: #F1F5F9;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #CBD5E1;
   border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
@@ -269,6 +290,7 @@ h1, h2, h3, h4 {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -279,6 +301,7 @@ h1, h2, h3, h4 {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
@@ -288,6 +311,7 @@ h1, h2, h3, h4 {
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -299,6 +323,58 @@ h1, h2, h3, h4 {
 
 .animate-scroll-horizontal-reverse {
   animation: scroll-horizontal-reverse var(--scroll-duration, 40s) linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 30s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 30s) linear infinite;
+}
+
+@keyframes moveLeft {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes moveRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-move-left {
+  animation: moveLeft 1.5s ease-in-out infinite;
+}
+
+.animate-move-right {
+  animation: moveRight 1.5s ease-in-out infinite;
 }
 
 .scroller-mask {

@@ -77,63 +77,72 @@ export interface GradientTiersProps {
   variant?: GradientTiersVariant;
   className?: string;
   onOpenGetStarted?: () => void;
+  isAnnual?: boolean;
+  onToggleAnnual?: (annual: boolean) => void;
 }
 
-const PALETTE = [
+export const PALETTE = [
   {
     icon: FileText,
-    wash: "from-blue-50/70 to-transparent",
-    iconBg: "bg-blue-50 border border-blue-100",
-    iconColor: "text-blue-600",
-    label: "text-slate-500",
+    dotColor: "bg-[#4a7dfc]",
+    wash: "from-[#1a2542] via-[#10172b]/75 to-transparent",
+    iconBg: "bg-[#141d33] border border-[#233560]",
+    iconColor: "text-[#8fadff]",
+    label: "text-[#8fadff]",
   },
   {
     icon: TrendingUp,
-    wash: "from-emerald-50/80 to-transparent",
-    iconBg: "bg-emerald-50 border border-emerald-100",
-    iconColor: "text-emerald-600",
-    label: "text-emerald-700",
+    dotColor: "bg-[#7f931c]",
+    wash: "from-[#272f10] via-[#1c220b]/75 to-transparent",
+    iconBg: "bg-[#22270e] border border-[#3e4a16]",
+    iconColor: "text-[#bdd14b]",
+    label: "text-[#bdd14b]",
+    badgeBg: "bg-[#2e3413] border border-[#485317] text-[#cade5e]",
   },
   {
     icon: Building2,
-    wash: "from-indigo-50/70 to-transparent",
-    iconBg: "bg-indigo-50 border border-indigo-100",
-    iconColor: "text-indigo-600",
-    label: "text-slate-500",
+    dotColor: "bg-[#a34df0]",
+    wash: "from-[#2c1844] via-[#1e102e]/75 to-transparent",
+    iconBg: "bg-[#251537] border border-[#4a266e]",
+    iconColor: "text-[#c894f7]",
+    label: "text-[#c894f7]",
   },
 ];
 
 export function GradientTiers({
   plans,
-  eyebrow,
-  heading,
-  subheading,
+  eyebrow = "PRICING",
+  heading = "Plans that grow with you",
+  subheading = "Start free, upgrade when you need more lead capacity and voice automation.",
   notes = [],
   variant = "Tinted",
   className,
   onOpenGetStarted,
+  isAnnual,
+  onToggleAnnual,
 }: GradientTiersProps) {
   const { ref, shown } = useReveal<HTMLElement>();
 
   return (
-    <section ref={ref} className={cn("@container w-full", className)}>
+    <section ref={ref} className={cn("@container w-full select-none", className)}>
       <style dangerouslySetInnerHTML={{ __html: REVEAL_KEYFRAMES }} />
 
+      {/* OUTSIDE THE BORDER: BRIGHT MODE */}
       {heading && (
         <div
           className={cn(
-            "mx-auto mb-12 sm:mb-14 max-w-[64ch] text-center",
+            "mx-auto mb-12 sm:mb-14 max-w-[62ch] text-center",
             revealClass(shown),
           )}
         >
           {eyebrow && (
-            <span className="inline-flex items-center gap-2 mb-3">
-              <span aria-hidden className="flex gap-1">
-                <span className="size-1.5 rounded-full bg-emerald-500" />
-                <span className="size-1.5 rounded-full bg-blue-500" />
-                <span className="size-1.5 rounded-full bg-indigo-500" />
+            <span className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80 mb-4 shadow-2xs">
+              <span aria-hidden className="flex gap-1.5">
+                <span className="size-2 rounded-full bg-[#4a7dfc]" />
+                <span className="size-2 rounded-full bg-[#7f931c]" />
+                <span className="size-2 rounded-full bg-[#a34df0]" />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-600">
                 {eyebrow}
               </span>
             </span>
@@ -146,10 +155,46 @@ export function GradientTiers({
               {subheading}
             </p>
           )}
+
+          {typeof onToggleAnnual === "function" && (
+            <div className="mt-8 inline-flex items-center gap-1.5 p-1 rounded-full bg-slate-200/80 border border-slate-300/50 shadow-inner">
+              <button
+                type="button"
+                onClick={() => onToggleAnnual(false)}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer",
+                  !isAnnual
+                    ? "bg-white text-slate-900 shadow-sm"
+                    : "text-slate-600 hover:text-slate-900",
+                )}
+              >
+                Monthly
+              </button>
+              <button
+                type="button"
+                onClick={() => onToggleAnnual(true)}
+                className={cn(
+                  "px-4 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1.5 cursor-pointer",
+                  isAnnual
+                    ? "bg-emerald-600 text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900",
+                )}
+              >
+                <span>Annual</span>
+                <span className={cn(
+                  "text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase",
+                  isAnnual ? "bg-white/20 text-white" : "bg-emerald-100 text-emerald-800"
+                )}>
+                  Save 20%
+                </span>
+              </button>
+            </div>
+          )}
         </div>
       )}
 
-      <div className="grid w-full grid-cols-1 overflow-hidden border border-slate-200 bg-white @3xl:grid-cols-3 rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
+      {/* INSIDE THE BORDER: BLACK / DARK MODE WITH VIOLET, LIME & BLUE GRADIENTS */}
+      <div className="grid w-full grid-cols-1 overflow-hidden border border-[#232730] bg-[#0c0e14] @3xl:grid-cols-3 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_rgba(15,23,42,0.25)] divide-y divide-[#232730] @3xl:divide-y-0 @3xl:divide-x">
         {plans.map((plan, position) => {
           const palette = PALETTE[position % PALETTE.length];
           const Icon = palette.icon;
@@ -161,8 +206,7 @@ export function GradientTiers({
               key={plan.id}
               style={revealDelay(shown, position)}
               className={cn(
-                "relative flex flex-col border-t border-slate-200 px-8 pb-10 pt-9 first:border-t-0 @3xl:border-l @3xl:border-t-0 @3xl:first:border-l-0 bg-white transition-colors duration-200",
-                isGrowth ? "bg-emerald-50/[0.25]" : "",
+                "relative flex flex-col px-8 pb-10 pt-9 bg-[#0c0e14] transition-all duration-200",
                 revealClass(shown),
               )}
             >
@@ -170,7 +214,7 @@ export function GradientTiers({
                 <span
                   aria-hidden
                   className={cn(
-                    "absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b pointer-events-none",
+                    "absolute inset-x-0 top-0 h-[48%] bg-gradient-to-b to-transparent pointer-events-none",
                     palette.wash,
                   )}
                 />
@@ -187,25 +231,25 @@ export function GradientTiers({
                       />
                     </div>
                     {plan.badge && (
-                      <span className="rounded-full bg-emerald-500 text-white px-3 py-1 text-xs font-semibold shadow-xs">
+                      <span className="rounded-full bg-[#2e3413] border border-[#485317] text-[#cade5e] px-3 py-1 text-xs font-semibold shadow-xs">
                         {plan.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="mt-6 text-2xl sm:text-[26px] font-bold tracking-tight text-slate-900">
+                  <h3 className="mt-6 text-2xl sm:text-[26px] font-bold tracking-tight text-white">
                     {plan.name}
                   </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600 min-h-[42px]">
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-400 min-h-[42px]">
                     {plan.tagline}
                   </p>
 
-                  <div className="mt-6 flex min-h-[42px] items-baseline justify-between gap-4 pb-6 border-b border-slate-100">
-                    <span className="whitespace-nowrap text-3xl font-bold tracking-tight text-slate-900">
+                  <div className="mt-6 flex min-h-[42px] items-baseline justify-between gap-4 pb-6 border-b border-[#232730]">
+                    <span className="whitespace-nowrap text-3xl font-bold tracking-tight text-white">
                       {note.price ?? "Custom pricing"}
                     </span>
                     {note.priceNote && (
-                      <span className="text-right text-xs font-medium text-slate-500">
+                      <span className="text-right text-xs font-medium text-slate-400">
                         {note.priceNote}
                       </span>
                     )}
@@ -216,11 +260,10 @@ export function GradientTiers({
                     onClick={plan.onCtaClick || onOpenGetStarted}
                     className={cn(
                       "group mt-6 flex h-[48px] w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold cursor-pointer",
-                      "transition-all duration-200 active:scale-[0.98] shadow-xs",
-                      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+                      "transition-all duration-200 active:scale-[0.98]",
                       isGrowth
-                        ? "bg-slate-950 text-white hover:bg-slate-800 hover:shadow-md"
-                        : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-slate-300",
+                        ? "bg-white text-[#0c0e14] hover:bg-slate-100 shadow-[0_0_24px_rgba(255,255,255,0.12)]"
+                        : "border border-white/15 bg-white/[0.05] text-white hover:bg-white/[0.1] hover:border-white/30",
                     )}
                   >
                     {plan.cta}
@@ -244,10 +287,10 @@ export function GradientTiers({
                   <ul className="mt-5 space-y-3.5">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-3">
-                        <div className="mt-0.5 rounded-full p-0.5 bg-emerald-50 text-emerald-600 shrink-0">
+                        <div className="mt-0.5 rounded-full p-0.5 bg-white/10 text-white shrink-0">
                           <Check className="size-3.5 stroke-[2.5]" />
                         </div>
-                        <span className="text-sm leading-relaxed text-slate-700">
+                        <span className="text-sm leading-relaxed text-[#d1d5db]">
                           {feature}
                         </span>
                       </li>
@@ -256,7 +299,7 @@ export function GradientTiers({
                 </div>
 
                 {note.footnote && (
-                  <p className="mt-8 text-center text-xs text-slate-500">
+                  <p className="mt-8 text-center text-xs text-slate-400">
                     {note.footnote}
                   </p>
                 )}
