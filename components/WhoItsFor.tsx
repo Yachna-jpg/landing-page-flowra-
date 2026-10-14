@@ -298,33 +298,14 @@ export const WhoItsFor: React.FC<WhoItsForProps> = ({ onOpenGetStarted }) => {
           </h2>
         </div>
 
-        {/* 3D Works Wheel Stage (Plane directly on background, no grey box/border) */}
-        <div className="relative w-full overflow-hidden min-h-[40rem] sm:min-h-[48rem]">
+        {/* 3D Works Wheel Stage (Plane directly on background, no clipping, ample vertical clearance) */}
+        <div className="relative w-full min-h-[50rem] sm:min-h-[58rem] lg:min-h-[64rem]">
           <WorksWheel
             items={wheelItems}
             label="Sector Playbooks"
             action="Configure"
             onActionClick={() => onOpenGetStarted?.()}
           />
-        </div>
-
-        {/* Bottom Callout */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 shrink-0" />
-            <p className="text-xs sm:text-sm text-slate-600 font-medium">
-              Don’t see your exact industry? Flowra’s prompt compiler adapts to any custom CRM and sales motion in 20 minutes.
-            </p>
-          </div>
-          {onOpenGetStarted && (
-            <button
-              onClick={onOpenGetStarted}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 transition-colors whitespace-nowrap cursor-pointer group"
-            >
-              <span>Build custom sector flow</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </button>
-          )}
         </div>
       </div>
     </section>

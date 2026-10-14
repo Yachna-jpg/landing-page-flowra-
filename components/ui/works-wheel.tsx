@@ -24,14 +24,14 @@ export interface WorksWheelProps extends Omit<
   onActionClick?: (item: WorksWheelItem) => void
 }
 
-/* Geometry tuned for large clear cards that don't overlap the left description */
-const CARD_H = 0.52 // front card height, of the stage
-const CARD_MAX_W = 0.44 // width ratio
+/* Geometry tuned for large clear cards that don't overlap the left description and fit comfortably without cutoffs */
+const CARD_H = 0.40 // balanced front card height
+const CARD_MAX_W = 0.36 // balanced card max width
 const CARD_RATIO = 1.45 // card width / height
-const STEP = 42 // degrees between cards on the drum
-const DRUM = 2.15 // drum radius
+const STEP = 40 // degrees between cards on the drum
+const DRUM = 2.2 // drum radius
 const LENS = 2.8 // perspective distance
-const RING_R = 1.18 // ring radius
+const RING_R = 1.05 // snugger ring radius so upper/lower cards stay comfortably inside frame
 const BOW = 1.65 // arc curvature
 const TITLE = 0.088
 const INDEX = 0.038
@@ -216,7 +216,7 @@ export function WorksWheel({
     <section
       aria-label={label}
       className={cn(
-        "bg-transparent text-slate-900 relative h-full min-h-[38rem] sm:min-h-[46rem] w-full overflow-hidden select-none font-sans",
+        "bg-transparent text-slate-900 relative h-full min-h-[50rem] sm:min-h-[58rem] lg:min-h-[64rem] w-full select-none font-sans",
         className
       )}
       {...props}
@@ -315,6 +315,34 @@ export function WorksWheel({
               </React.Fragment>
             )
           })}
+        </div>
+      </div>
+
+      {/* Center Key Words at Rest: Vanishes cleanly after scrolling (m > 0) */}
+      <div
+        ref={labelRef}
+        className="pointer-events-none absolute inset-0 grid place-items-center text-center tracking-tight px-6 z-10 transition-opacity duration-300"
+      >
+        <div className="flex flex-col items-center justify-center max-w-sm sm:max-w-md select-none">
+          {/* Key pill badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold uppercase tracking-wider mb-2.5 shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Multi-Sector AI Engine</span>
+          </div>
+
+          {/* Key Words Title in Canva Modern Geometry */}
+          <h3
+            className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight"
+            style={{ fontFamily: "var(--font-heading-canva), var(--font-inter), sans-serif" }}
+          >
+            Explore Sector Playbooks
+          </h3>
+
+          {/* Concise Key Microcopy */}
+          <p className="text-xs sm:text-sm text-slate-500 mt-2 font-medium flex items-center gap-2">
+            <span>Scroll to browse</span>
+            <span className="text-emerald-600 font-bold">&darr;</span>
+          </p>
         </div>
       </div>
 
