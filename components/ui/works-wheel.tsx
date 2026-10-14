@@ -318,24 +318,6 @@ export function WorksWheel({
         </div>
       </div>
 
-      {/* Ring center title at rest */}
-      <div
-        ref={labelRef}
-        className="pointer-events-none absolute inset-0 grid place-items-center text-center tracking-tight px-6 z-10"
-      >
-        <div className="flex flex-col items-center max-w-lg">
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-700 font-semibold mb-2 bg-emerald-50 border border-emerald-200 px-3.5 py-1 rounded-full">
-            Autonomous 3D Index
-          </span>
-          <h3 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-            {label}
-          </h3>
-          <p className="text-sm text-slate-500 mt-2.5 font-normal leading-relaxed">
-            Scroll or drag wheel to expand the 3D drum &amp; inspect playbooks
-          </p>
-        </div>
-      </div>
-
       {/* Description as the main heading on the left (No overlap, no grey border, seamlessly on background) */}
       <div
         ref={titleRef}
@@ -382,32 +364,6 @@ export function WorksWheel({
             )}
           </div>
         )}
-      </div>
-
-      {/* Index list placed at utmost right edge so it never overlaps or gets overlooked by pictures */}
-      <div className="absolute top-[8%] sm:top-[10%] right-2 sm:right-4 z-20 pointer-events-auto">
-        <ol
-          className="text-slate-400 text-right leading-[2.1] bg-white/70 backdrop-blur-md p-3 sm:p-4 rounded-2xl border border-slate-200/60 shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
-          style={{ fontSize: Math.max(12, metrics.index) }}
-        >
-          {items.map((item, i) => (
-            <li key={item.title}>
-              <button
-                type="button"
-                onClick={() => to(i + 1)}
-                className={cn(
-                  "focus-visible:outline-slate-900 cursor-pointer transition-all duration-200 outline-none focus-visible:outline-1 text-xs sm:text-[13px] tracking-tight block ml-auto py-0.5",
-                  i === active
-                    ? "text-emerald-700 font-bold scale-105 origin-right"
-                    : "hover:text-slate-900 text-slate-500 font-medium"
-                )}
-                style={{ fontFamily: "var(--font-heading-canva), var(--font-inter), sans-serif" }}
-              >
-                {item.title}
-              </button>
-            </li>
-          ))}
-        </ol>
       </div>
     </section>
   )
