@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Building2, FileText, TrendingUp } from "lucide-react";
+import { ArrowRight, Building2, FileText, TrendingUp, Check } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -82,21 +82,24 @@ export interface GradientTiersProps {
 const PALETTE = [
   {
     icon: FileText,
-    wash: "from-[#e8efff] dark:from-[#1a2338]",
-    iconColor: "text-[#4a7dfc] dark:text-[#8fadff]",
-    label: "text-[#8a8580] dark:text-[#98938d]",
+    wash: "from-blue-50/70 to-transparent",
+    iconBg: "bg-blue-50 border border-blue-100",
+    iconColor: "text-blue-600",
+    label: "text-slate-500",
   },
   {
     icon: TrendingUp,
-    wash: "from-[#f3f7d4] dark:from-[#272b10]",
-    iconColor: "text-[#7f931c] dark:text-[#bdd14b]",
-    label: "text-[#7f931c] dark:text-[#bdd14b]",
+    wash: "from-emerald-50/80 to-transparent",
+    iconBg: "bg-emerald-50 border border-emerald-100",
+    iconColor: "text-emerald-600",
+    label: "text-emerald-700",
   },
   {
     icon: Building2,
-    wash: "from-[#f5ecfe] dark:from-[#2a1c3c]",
-    iconColor: "text-[#a34df0] dark:text-[#c894f7]",
-    label: "text-[#4a7dfc] dark:text-[#8fadff]",
+    wash: "from-indigo-50/70 to-transparent",
+    iconBg: "bg-indigo-50 border border-indigo-100",
+    iconColor: "text-indigo-600",
+    label: "text-slate-500",
   },
 ];
 
@@ -119,45 +122,47 @@ export function GradientTiers({
       {heading && (
         <div
           className={cn(
-            "mx-auto mb-10 max-w-[54ch] text-center",
+            "mx-auto mb-12 sm:mb-14 max-w-[64ch] text-center",
             revealClass(shown),
           )}
         >
           {eyebrow && (
-            <span className="inline-flex items-center gap-2.5">
+            <span className="inline-flex items-center gap-2 mb-3">
               <span aria-hidden className="flex gap-1">
-                <span className="size-1.5 rounded-full bg-[#4a7dfc]" />
-                <span className="size-1.5 rounded-full bg-[#7f931c]" />
-                <span className="size-1.5 rounded-full bg-[#a34df0]" />
+                <span className="size-1.5 rounded-full bg-emerald-500" />
+                <span className="size-1.5 rounded-full bg-blue-500" />
+                <span className="size-1.5 rounded-full bg-indigo-500" />
               </span>
-              <span className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#78716c] dark:text-[#98938d]">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                 {eyebrow}
               </span>
             </span>
           )}
-          <h2 className="mt-4 text-balance [font-family:var(--font-spectral,Georgia,serif)] text-[28px] font-normal leading-[1.08] tracking-[-0.5px] text-[#1c1b1a] dark:text-[#f5f5f4] @sm:text-[34px] @lg:text-[42px]">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight leading-tight">
             {heading}
           </h2>
           {subheading && (
-            <p className="mt-3 text-pretty text-[16px] leading-[1.55] text-[#57534e] dark:text-[#a8a29e]">
+            <p className="mt-3.5 text-sm sm:text-base leading-relaxed text-slate-600 max-w-xl mx-auto">
               {subheading}
             </p>
           )}
         </div>
       )}
 
-      <div className="grid w-full grid-cols-1 overflow-hidden border border-[#e2e0dd] bg-white @3xl:grid-cols-3 dark:border-[#2b2b30] dark:bg-[#0f0f11] rounded-2xl shadow-xs">
+      <div className="grid w-full grid-cols-1 overflow-hidden border border-slate-200 bg-white @3xl:grid-cols-3 rounded-3xl shadow-[0_20px_50px_rgba(15,23,42,0.06)]">
         {plans.map((plan, position) => {
           const palette = PALETTE[position % PALETTE.length];
           const Icon = palette.icon;
           const note = notes[position] ?? {};
+          const isGrowth = position === 1;
 
           return (
             <div
               key={plan.id}
               style={revealDelay(shown, position)}
               className={cn(
-                "relative flex flex-col border-t border-[#e2e0dd] px-8 pb-10 pt-9 first:border-t-0 @3xl:border-l @3xl:border-t-0 @3xl:first:border-l-0 dark:border-[#2b2b30]",
+                "relative flex flex-col border-t border-slate-200 px-8 pb-10 pt-9 first:border-t-0 @3xl:border-l @3xl:border-t-0 @3xl:first:border-l-0 bg-white transition-colors duration-200",
+                isGrowth ? "bg-emerald-50/[0.25]" : "",
                 revealClass(shown),
               )}
             >
@@ -165,7 +170,7 @@ export function GradientTiers({
                 <span
                   aria-hidden
                   className={cn(
-                    "absolute inset-x-0 top-0 h-[46%] bg-gradient-to-b to-transparent pointer-events-none",
+                    "absolute inset-x-0 top-0 h-[40%] bg-gradient-to-b pointer-events-none",
                     palette.wash,
                   )}
                 />
@@ -174,31 +179,33 @@ export function GradientTiers({
               <div className="relative flex flex-col flex-1 justify-between">
                 <div>
                   <div className="flex items-start justify-between">
-                    <Icon
-                      aria-hidden
-                      className={cn("size-6", palette.iconColor)}
-                      strokeWidth={1.8}
-                    />
+                    <div className={cn("p-2.5 rounded-xl", palette.iconBg)}>
+                      <Icon
+                        aria-hidden
+                        className={cn("size-5", palette.iconColor)}
+                        strokeWidth={2}
+                      />
+                    </div>
                     {plan.badge && (
-                      <span className="rounded-full bg-[#e7edc4] px-3.5 py-1.5 text-[14px] font-medium text-[#5b661c] dark:bg-[#2e3413] dark:text-[#cade5e]">
+                      <span className="rounded-full bg-emerald-500 text-white px-3 py-1 text-xs font-semibold shadow-xs">
                         {plan.badge}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="mt-6 [font-family:var(--font-spectral,Georgia,serif)] text-[30px] font-normal leading-none tracking-[-0.5px] text-[#1c1b1a] dark:text-[#f5f5f4] @sm:text-[34px] @lg:text-[38px]">
+                  <h3 className="mt-6 text-2xl sm:text-[26px] font-bold tracking-tight text-slate-900">
                     {plan.name}
                   </h3>
-                  <p className="mt-3 text-pretty text-[16px] leading-[1.5] text-[#57534e] dark:text-[#a8a29e]">
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600 min-h-[42px]">
                     {plan.tagline}
                   </p>
 
-                  <div className="mt-7 flex min-h-[42px] items-baseline justify-between gap-4">
-                    <span className="whitespace-nowrap text-[27px] font-semibold tracking-[-0.5px] text-[#1c1b1a] dark:text-[#f5f5f4]">
+                  <div className="mt-6 flex min-h-[42px] items-baseline justify-between gap-4 pb-6 border-b border-slate-100">
+                    <span className="whitespace-nowrap text-3xl font-bold tracking-tight text-slate-900">
                       {note.price ?? "Custom pricing"}
                     </span>
                     {note.priceNote && (
-                      <span className="text-right text-[14px] leading-snug text-[#78716c] dark:text-[#8f8a85]">
+                      <span className="text-right text-xs font-medium text-slate-500">
                         {note.priceNote}
                       </span>
                     )}
@@ -208,26 +215,24 @@ export function GradientTiers({
                     type="button"
                     onClick={plan.onCtaClick || onOpenGetStarted}
                     className={cn(
-                      "group mt-6 flex h-[52px] w-full items-center justify-center gap-2 rounded-[3px] text-[16px] font-medium cursor-pointer",
-                      "transition-[transform,background-color,border-color] duration-150 active:scale-[0.98]",
-                      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#4a7dfc] focus-visible:ring-offset-2",
-                      position === 0
-                        ? "border border-black/40 bg-[#3a3733] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.14)] hover:bg-[#292624] dark:border-white/20 dark:bg-[#f5f5f4] dark:text-[#1c1917] dark:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)] dark:hover:bg-white"
-                        : "border border-[#d9d6d2] bg-white text-[#453f54] hover:border-[#b9b5af] dark:border-white/[0.15] dark:bg-transparent dark:text-[#d3cde2] dark:hover:border-white/[0.3]",
+                      "group mt-6 flex h-[48px] w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold cursor-pointer",
+                      "transition-all duration-200 active:scale-[0.98] shadow-xs",
+                      "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+                      isGrowth
+                        ? "bg-slate-950 text-white hover:bg-slate-800 hover:shadow-md"
+                        : "border border-slate-200 bg-white text-slate-800 hover:bg-slate-50 hover:border-slate-300",
                     )}
                   >
                     {plan.cta}
-                    {position > 0 && (
-                      <ArrowRight
-                        aria-hidden
-                        className="size-4 transition-transform duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 motion-reduce:transition-none"
-                      />
-                    )}
+                    <ArrowRight
+                      aria-hidden
+                      className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+                    />
                   </button>
 
                   <p
                     className={cn(
-                      "mt-9 text-[13px] font-semibold uppercase tracking-[0.05em]",
+                      "mt-8 text-xs font-bold uppercase tracking-wider",
                       palette.label,
                     )}
                   >
@@ -236,24 +241,13 @@ export function GradientTiers({
                       : "Core functionality"}
                   </p>
 
-                  <ul className="mt-6 space-y-[18px]">
+                  <ul className="mt-5 space-y-3.5">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-baseline gap-3.5">
-                        <svg
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden
-                          className="size-4 shrink-0 translate-y-0.5 text-[#1c1b1a] dark:text-[#f5f5f4]"
-                        >
-                          <path
-                            d="m2.5 9 3.5 3.5L13.5 4"
-                            stroke="currentColor"
-                            strokeWidth="1.6"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                        <span className="text-[15.5px] leading-[1.45] text-[#292524] dark:text-[#d6d3d1]">
+                      <li key={feature} className="flex items-start gap-3">
+                        <div className="mt-0.5 rounded-full p-0.5 bg-emerald-50 text-emerald-600 shrink-0">
+                          <Check className="size-3.5 stroke-[2.5]" />
+                        </div>
+                        <span className="text-sm leading-relaxed text-slate-700">
                           {feature}
                         </span>
                       </li>
@@ -262,7 +256,7 @@ export function GradientTiers({
                 </div>
 
                 {note.footnote && (
-                  <p className="mt-10 text-center text-[14.5px] text-[#57534e] dark:text-[#a8a29e]">
+                  <p className="mt-8 text-center text-xs text-slate-500">
                     {note.footnote}
                   </p>
                 )}

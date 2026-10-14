@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header
       ref={headerRef}
-      className="fixed top-0 left-0 right-0 z-50 transition-all select-none bg-transparent"
+      className="fixed top-0 left-0 right-0 z-50 transition-all select-none bg-gradient-to-b from-slate-100/90 via-slate-100/50 to-transparent backdrop-blur-md border-b border-slate-200/40"
     >
       {/* Completely Transparent Top Bar */}
       <div className="relative z-50 px-6 sm:px-12 py-4 sm:py-5 max-w-7xl mx-auto flex items-center justify-between">

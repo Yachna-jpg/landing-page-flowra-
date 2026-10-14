@@ -1,16 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Building2,
-  GraduationCap,
-  ShoppingBag,
-  Stethoscope,
-  Ticket,
-  Briefcase,
-  ArrowRight,
-} from "lucide-react";
+import React from "react";
+import { WorksWheel, WorksWheelItem } from "@/components/ui/works-wheel";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 interface PlaybookStep {
   step: string;
@@ -25,7 +17,6 @@ interface SectorPlaybook {
   tag: string;
   image: string;
   imageAlt: string;
-  icon: React.ComponentType<{ className?: string }>;
   stats: { value: string; label: string }[];
   bottleneck: string;
   solution: string;
@@ -40,7 +31,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "High-Ticket Property",
     image: "/sectors/real_estate.jpg",
     imageAlt: "Luxury penthouse interior overlooking city skyline",
-    icon: Building2,
     stats: [
       { value: "12s", label: "Speed to First Contact" },
       { value: "42%", label: "Site Visit Booking Rate" },
@@ -80,7 +70,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "Course Enrollments",
     image: "/sectors/edtech.jpg",
     imageAlt: "Modern tech learning studio with student and counselor",
-    icon: GraduationCap,
     stats: [
       { value: "3.4×", label: "Counseling Call Rate" },
       { value: "65%", label: "Late-Night Drop-Off Recovery" },
@@ -120,7 +109,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "Checkout & COD Recovery",
     image: "/sectors/d2c.jpg",
     imageAlt: "Luxury skincare lifestyle products on travertine pedestal",
-    icon: ShoppingBag,
     stats: [
       { value: "31%", label: "Abandoned Cart Recovery" },
       { value: "78%", label: "COD Return (RTO) Reduction" },
@@ -160,7 +148,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "Patient Intake & OPD",
     image: "/sectors/clinics.jpg",
     imageAlt: "Minimalist luxury aesthetic wellness clinic lounge",
-    icon: Stethoscope,
     stats: [
       { value: "100%", label: "After-Hours Inquiries Answered" },
       { value: "2.8×", label: "Appointment Fill Rate" },
@@ -200,7 +187,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "Attendance & Turnout",
     image: "/sectors/events.jpg",
     imageAlt: "Tech global leadership summit keynote stage with large screen",
-    icon: Ticket,
     stats: [
       { value: "74%", label: "Live Turnout Rate" },
       { value: "5s", label: "Pass & Ticket Delivery" },
@@ -240,7 +226,6 @@ const SECTOR_PLAYBOOKS: SectorPlaybook[] = [
     tag: "Lead Quality & SLA",
     image: "/sectors/agencies.jpg",
     imageAlt: "Marketing growth agency boardroom with multi-screen analytics",
-    icon: Briefcase,
     stats: [
       { value: "< 15s", label: "Client Lead Qualification" },
       { value: "3.8×", label: "Client Retainer Retention" },
@@ -280,180 +265,66 @@ interface WhoItsForProps {
 }
 
 export const WhoItsFor: React.FC<WhoItsForProps> = ({ onOpenGetStarted }) => {
-  const [activeTab, setActiveTab] = useState<string>("real-estate");
-
-  const activePlaybook =
-    SECTOR_PLAYBOOKS.find((p) => p.id === activeTab) || SECTOR_PLAYBOOKS[0];
+  // Convert playbooks into 3D WorksWheel items
+  const wheelItems: WorksWheelItem[] = SECTOR_PLAYBOOKS.map((p) => ({
+    title: p.title,
+    image: p.image,
+    subtitle: p.subtitle,
+    bottleneck: p.bottleneck,
+    solution: p.solution,
+    stat: p.stats[0],
+    href: "#",
+  }));
 
   return (
     <section
       id="who-its-for"
-      className="w-full bg-[#FAFAFA] py-20 sm:py-28 border-t border-slate-200/80"
+      className="w-full bg-[#FAFAFA] py-20 sm:py-28 border-t border-slate-200/80 font-sans"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-12">
-        {/* Editorial Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
-          <span className="text-xs font-mono tracking-widest uppercase text-slate-400 font-semibold mb-3 block">
-            Tailored Industry Playbooks
-          </span>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-slate-900 leading-[1.14]">
-            Engineered for high-volume lead teams.
-          </h2>
-
-          <p className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-            Pre-built autonomous workflows, localized voice models, and instant CRM
-            handoffs configured for your sector&apos;s exact conversion hurdles.
-          </p>
-
-          {/* Minimalist Sector Switcher */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto">
-            {SECTOR_PLAYBOOKS.map((item) => {
-              const isActive = activeTab === item.id;
-              const Icon = item.icon;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 ${
-                    isActive
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "bg-white text-slate-600 hover:text-slate-900 border border-slate-200 hover:border-slate-300"
-                  }`}
-                >
-                  <Icon
-                    className={`w-3.5 h-3.5 ${
-                      isActive ? "text-emerald-400" : "text-slate-400"
-                    }`}
-                  />
-                  <span>{item.title}</span>
-                </button>
-              );
-            })}
+        {/* Section Header */}
+        <div className="text-center max-w-4xl mx-auto mb-8 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Tailored Industry Playbooks</span>
           </div>
+
+          {/* Canva text style for heading: bold, clean geometry, tighter tracking, premium gradient text */}
+          <h2
+            className="text-4xl sm:text-6xl md:text-[4rem] font-extrabold tracking-tight text-slate-900 leading-[1.08] select-none"
+            style={{ fontFamily: "var(--font-heading-canva), var(--font-inter), sans-serif", letterSpacing: "-0.035em" }}
+          >
+            Engineered for <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500">high-volume</span> lead teams.
+          </h2>
         </div>
 
-        {/* Clean Editorial Showcase Bento */}
-        <div className="relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activePlaybook.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.28, ease: "easeOut" }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch bg-white rounded-3xl border border-slate-200/90 shadow-[0_2px_16px_rgba(0,0,0,0.03)] p-6 sm:p-10 lg:p-12 overflow-hidden"
+        {/* 3D Works Wheel Stage (Plane directly on background, no grey box/border) */}
+        <div className="relative w-full overflow-hidden min-h-[40rem] sm:min-h-[48rem]">
+          <WorksWheel
+            items={wheelItems}
+            label="Sector Playbooks"
+            action="Configure"
+            onActionClick={() => onOpenGetStarted?.()}
+          />
+        </div>
+
+        {/* Bottom Callout */}
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100 shrink-0" />
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              Don’t see your exact industry? Flowra’s prompt compiler adapts to any custom CRM and sales motion in 20 minutes.
+            </p>
+          </div>
+          {onOpenGetStarted && (
+            <button
+              onClick={onOpenGetStarted}
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-emerald-700 hover:text-emerald-800 transition-colors whitespace-nowrap cursor-pointer group"
             >
-              {/* LEFT COLUMN: Editorial Diagnostic & Solution Rail */}
-              <div className="lg:col-span-6 flex flex-col justify-between">
-                <div>
-                  {/* Category & Tag */}
-                  <div className="flex items-center gap-2.5 mb-2.5">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-medium">
-                      Sector Playbook
-                    </span>
-                    <span className="text-slate-300">•</span>
-                    <span className="text-xs text-slate-500 font-medium">
-                      {activePlaybook.subtitle}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-normal tracking-tight text-slate-900 leading-snug">
-                    {activePlaybook.title}
-                  </h3>
-
-                  {/* The Core Hurdle (Clean Editorial Quote) */}
-                  <div className="my-5 pl-4 border-l-2 border-slate-900 py-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
-                      The Conversion Hurdle
-                    </span>
-                    <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
-                      {activePlaybook.bottleneck}
-                    </p>
-                  </div>
-
-                  {/* How Flowra Solves It */}
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                    {activePlaybook.solution}
-                  </p>
-
-                  {/* Autonomous 4-Step Sequence */}
-                  <div className="mt-6 pt-5 border-t border-slate-100">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-3">
-                      Autonomous 4-Step Workflow
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5">
-                      {activePlaybook.steps.map((st) => (
-                        <div key={st.step} className="flex items-start gap-2.5">
-                          <span className="text-xs font-mono font-bold text-slate-400 shrink-0 mt-0.5">
-                            {st.step}
-                          </span>
-                          <div>
-                            <h4 className="text-xs font-semibold text-slate-900 leading-snug">
-                              {st.title}
-                            </h4>
-                            <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5">
-                              {st.desc}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Row: Metrics & Action */}
-                <div className="mt-8 pt-6 border-t border-slate-100">
-                  <div className="grid grid-cols-3 gap-4 mb-5">
-                    {activePlaybook.stats.map((st, idx) => (
-                      <div key={idx} className="flex flex-col">
-                        <span className="text-2xl sm:text-3xl font-light tracking-tight text-slate-900">
-                          {st.value}
-                        </span>
-                        <span className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
-                          {st.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {onOpenGetStarted && (
-                    <button
-                      onClick={onOpenGetStarted}
-                      className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-900 hover:text-emerald-700 transition-colors cursor-pointer group"
-                    >
-                      <span>Configure playbook for {activePlaybook.title}</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* RIGHT COLUMN: Pristine Contextual Photography (100% Unobstructed) */}
-              <div className="lg:col-span-6 flex flex-col justify-center">
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200/90 shadow-xs group">
-                  <img
-                    src={activePlaybook.image}
-                    alt={activePlaybook.imageAlt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
-                  />
-                </div>
-
-                {/* Minimal Editorial Metadata Caption Underneath */}
-                <div className="mt-3 flex items-center justify-between px-1 text-xs text-slate-500">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span className="font-mono text-[11px] uppercase tracking-wider text-slate-600 font-medium">
-                      {activePlaybook.tag}
-                    </span>
-                  </div>
-                  <span className="text-[11px] text-slate-400 font-mono">
-                    Autonomous Response &lt;15s
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              <span>Build custom sector flow</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </button>
+          )}
         </div>
       </div>
     </section>

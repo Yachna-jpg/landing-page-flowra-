@@ -392,14 +392,14 @@ export default function Home() {
       {/* SECTION: PRICING SECTION (INR PRICING WITH ANNUAL TOGGLE) */}
       <PricingSection onOpenGetStarted={() => setGetStartedOpen(true)} />
 
+      {/* SECTION: FINAL CALL TO ACTION (Under Pricing & Above FAQs) */}
+      <FinalWhatsAppCTA onOpenGetStarted={() => setGetStartedOpen(true)} />
+
       {/* SECTION: FREQUENTLY ASKED QUESTIONS */}
       <FAQSection
         onOpenContact={() => setContactOpen(true)}
         onOpenGetStarted={() => setGetStartedOpen(true)}
       />
-
-      {/* SECTION: FINAL CALL TO ACTION */}
-      <FinalWhatsAppCTA onOpenGetStarted={() => setGetStartedOpen(true)} />
 
       {/* FOOTER */}
       <Footer

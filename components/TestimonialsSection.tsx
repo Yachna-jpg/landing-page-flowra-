@@ -265,13 +265,15 @@ const ScrollerRow: React.FC<{
   );
 };
 
+import TestimonialsEditorial from "@/components/ui/editorial-testimonial";
+
 export const TestimonialsSection: React.FC = () => {
   return (
     <section
       id="testimonials"
-      className="relative w-full border-t border-slate-200/80 bg-gradient-to-b from-white via-[#EDF2FF] to-[#CBD8FE] py-16 sm:py-24 overflow-hidden"
+      className="relative w-full border-t border-slate-200/80 bg-gradient-to-b from-white via-white/80 via-60% to-[#DDD6FE] py-16 sm:py-24 overflow-hidden"
     >
-      <div className="flex flex-col items-center gap-3 text-center z-10 max-w-2xl px-6 mx-auto mb-10 sm:mb-14">
+      <div className="flex flex-col items-center gap-3 text-center z-10 max-w-2xl px-6 mx-auto mb-6 sm:mb-8">
         <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-slate-900 tracking-tight leading-tight">
           Loved by fast-moving revenue teams
         </h2>
@@ -281,10 +283,8 @@ export const TestimonialsSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 sm:gap-4.5 z-10 w-full">
-        {TESTIMONIAL_ROWS.map((row) => (
-          <ScrollerRow key={row.id} row={row} />
-        ))}
+      <div className="z-10 w-full relative">
+        <TestimonialsEditorial />
       </div>
     </section>
   );
